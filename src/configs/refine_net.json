@@ -1,0 +1,67 @@
+{
+    "identifier_suffix": "",
+    "note": "",
+
+    "tensorboard_scalars_every_n_steps": 1,
+    "tensorboard_images_every_n_steps": 100,
+
+    "train_cameras": ["basler", "webcam_l", "webcam_c", "webcam_r"],
+    "train_stimuli": ["image", "video", "wikipedia"],
+    "test_cameras": ["basler", "webcam_l", "webcam_c", "webcam_r"],
+    "test_stimuli": ["image", "video", "wikipedia"],
+
+    "batch_size": 8,
+    "num_epochs": 4,
+
+    "test_batch_size": 128,
+    "test_every_n_steps": 100,
+
+    "full_test_batch_size": 64,
+
+    "weight_decay": 0.0,
+
+    "base_learning_rate": 0.001,
+    "num_warmup_epochs": 0.0,
+    "lr_decay_strategy": "exponential",
+    "lr_decay_factor": 0.5,
+    "lr_decay_epoch_interval": 0.5,
+
+    "do_gradient_clipping": true,
+    "gradient_clip_by": "norm",
+    "gradient_clip_amount": 5.0,
+
+    "eyes_size": [128, 128],
+    "eye_net_load_pretrained": true,
+    "eye_net_use_rnn": true,
+    "eye_net_frozen": true,
+    "eye_net_rnn_type": "GRU",
+    "eye_net_rnn_num_cells": 1,
+    "eye_net_rnn_num_features": 128,
+    "eye_net_static_num_features": 128,
+    "eye_net_use_head_pose_input": true,
+    "loss_coeff_PoG_cm_initial": 0.0,
+    "loss_coeff_g_ang_initial": 0.0,
+    "loss_coeff_pupil_size": 0.0,
+
+    "load_screen_content": true,
+    "screen_size": [128, 72],
+    "assumed_frame_rate": 10,
+    "max_sequence_len": 30,
+
+    "refine_net_enabled": true,
+    "refine_net_do_offset_augmentation": true,
+    "refine_net_offset_augmentation_sigma": 3.0,
+    "refine_net_use_rnn": true,
+    "refine_net_rnn_type": "CLSTM",
+    "refine_net_num_features": 256,
+    "refine_net_rnn_num_cells": 1,
+    "loss_coeff_PoG_cm_final": 0.001,
+    "loss_coeff_heatmap_ce_final": 1.0,
+    "loss_coeff_heatmap_mse_final": 0.0,
+
+    "gaze_heatmap_size": [128, 72],
+    "gaze_heatmap_sigma_initial": 10.0,
+    "gaze_heatmap_sigma_history": 3.0,
+    "gaze_heatmap_sigma_final": 5.0,
+    "gaze_history_map_decay_per_ms": 0.999
+}

@@ -1,0 +1,33 @@
+{
+    "batch_size": 16,
+    "num_epochs": 8,
+
+    "assumed_frame_rate": 10,
+    "max_sequence_len": 30,
+
+    "train_data_workers": 8,
+
+    "test_batch_size": 128,
+    "test_every_n_steps": 250,
+
+    "weight_decay": 0.005,
+
+    "base_learning_rate": 0.001,
+    "lr_decay_strategy": "exponential",
+    "lr_decay_factor": 0.5,
+    "lr_decay_epoch_interval": 1,
+
+    "do_gradient_clipping": true,
+    "gradient_clip_by": "norm",
+    "gradient_clip_amount": 5.0,
+
+    "eyes_size": [128, 128],
+    "eye_net_use_rnn": true,
+    "eye_net_rnn_type": "GRU",
+    "eye_net_rnn_num_features": 128,
+    "eye_net_static_num_features": 128,
+    "eye_net_use_head_pose_input": true,
+    "loss_coeff_PoG_cm_initial": 0.0,
+    "loss_coeff_g_ang_initial": 1.0,
+    "loss_coeff_pupil_size": 1.0
+}
