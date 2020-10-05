@@ -59,7 +59,6 @@ class DefaultConfig(object):
     # Training
     skip_training = False
     fully_reproducible = False  # enable with possible penalty of performance
-    use_apex = False
 
     batch_size = 16
     weight_decay = 0.001

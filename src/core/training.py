@@ -45,6 +45,19 @@ logger = logging.getLogger(__name__)
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 
+def _convert_cli_arg_type(key, value):
+    config_type = type(getattr(config, key))
+    if config_type == bool:
+        if value.lower() in ('true', 'yes', 'y') or value == '1':
+            return True
+        elif value.lower() in ('false', 'no', 'n') or value == '0':
+            return False
+        else:
+            raise ValueError('Invalid input for bool config "%s": %s' % (key, value))
+    else:
+        return config_type(value)
+
+
 def script_init_common():
     parser = argparse.ArgumentParser(description='Train a gaze estimation model.')
     parser.add_argument('-v', type=str, help='Desired logging level.', default='info',
@@ -59,6 +72,9 @@ def script_init_common():
             continue
         value = getattr(config, key)
         value_type = type(value)
+        if value_type == bool:
+            # Handle booleans separately, otherwise arbitrary values become `True`
+            value_type = str
         if callable(value):
             continue
         parser.add_argument('--' + key.replace('_', '-'), type=value_type, metavar=value,
@@ -80,11 +96,11 @@ def script_init_common():
         config.import_json(json_path)
 
     # Apply configs passed through command line
-    config.import_dict(dict([
-        (key.replace('-', '_'), type(getattr(config, key))(value))
+    config.import_dict({
+        key.replace('-', '_'): _convert_cli_arg_type(key, value)
         for key, value in vars(args).items()
         if value is not None and hasattr(config, key)
-    ]))
+    })
 
     # Improve reproducibility
     torch.manual_seed(0)
