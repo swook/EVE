@@ -72,12 +72,13 @@ def script_init_common():
             continue
         value = getattr(config, key)
         value_type = type(value)
+        arg_type = value_type
         if value_type == bool:
             # Handle booleans separately, otherwise arbitrary values become `True`
-            value_type = str
+            arg_type = str
         if callable(value):
             continue
-        parser.add_argument('--' + key.replace('_', '-'), type=value_type, metavar=value,
+        parser.add_argument('--' + key.replace('_', '-'), type=arg_type, metavar=value,
                             help='Expected type is `%s`.' % value_type.__name__)
     args = parser.parse_args()
 
