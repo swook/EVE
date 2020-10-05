@@ -2,7 +2,10 @@
 logs
 outputs*/
 leonhard_outputs/
+
+# Secrets
 *credentials*
+*wook*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

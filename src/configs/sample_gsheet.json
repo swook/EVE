@@ -1,0 +1,4 @@
+{
+	"gsheet_secrets_json_file": "src/relative/path/to/json",
+	"gsheet_workbook_key": "this_is_the_part_after_docs.google.com/spreadsheets/d/"
+}
