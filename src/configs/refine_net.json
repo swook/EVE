@@ -53,7 +53,7 @@
     "refine_net_offset_augmentation_sigma": 3.0,
     "refine_net_use_rnn": true,
     "refine_net_rnn_type": "CLSTM",
-    "refine_net_num_features": 256,
+    "refine_net_num_features": 64,
     "refine_net_rnn_num_cells": 1,
     "loss_coeff_PoG_cm_final": 0.001,
     "loss_coeff_heatmap_ce_final": 1.0,

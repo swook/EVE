@@ -28,6 +28,7 @@ from losses.euclidean import EuclideanLoss
 from losses.angular import AngularLoss
 from losses.mse import MSELoss
 from losses.l1 import L1Loss
+from utils.load_model import load_weights_for_instance
 
 from .common import (batch_make_heatmaps, batch_make_gaze_history_maps, soft_argmax,
                      to_screen_coordinates, apply_offset_augmentation,
@@ -53,7 +54,7 @@ class EVE(nn.Module):
         # Network to estimate gaze direction and pupil size (mm)
         self.eye_net = EyeNet()
         if config.eye_net_load_pretrained:
-            self.eye_net.load_pretrained_weights()
+            load_weights_for_instance(self.eye_net)
         if config.eye_net_frozen:
             for param in self.eye_net.parameters():
                 param.requires_grad = False

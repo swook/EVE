@@ -19,7 +19,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 import logging
-import os
 
 import numpy as np
 import torch
@@ -149,20 +148,3 @@ class EyeNet(nn.Module):
         # If network frozen, we're gonna detach gradients here
         if config.eye_net_frozen:
             output_dict[side + '_g_initial'] = output_dict[side + '_g_initial'].detach()
-
-    def load_pretrained_weights(self):
-        if config.eye_net_use_rnn:
-            path = (os.path.dirname(__file__) + '/../../pretrained_weights/' +
-                    '0626_EyeNet_128x128_1xGRU/eye_net.pt')
-        else:
-            path = (os.path.dirname(__file__) + '/../../pretrained_weights/' +
-                    '0626_EyeNet_128x128_Static/eye_net.pt')
-        pretrained_weights = torch.load(path, map_location=device)
-        renamed_weights = {}
-        expected_prefix = 'eye_net.'
-        for k, v in pretrained_weights.items():
-            if k.startswith(expected_prefix):
-                new_k = k[len(expected_prefix):]
-                renamed_weights[new_k] = v
-        self.load_state_dict(renamed_weights)
-        logger.info('Loaded Eye Network weights from: ' + path)

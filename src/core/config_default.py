@@ -112,9 +112,9 @@ class DefaultConfig(object):
     refine_net_use_skip_connections = True
 
     refine_net_use_rnn = True
-    refine_net_rnn_type = 'GRU'  # 'RNN' | 'LSTM' | 'GRU'
+    refine_net_rnn_type = 'CGRU'  # 'CRNN' | 'CLSTM' | 'CGRU'
     refine_net_rnn_num_cells = 1
-    refine_net_num_features = 256
+    refine_net_num_features = 64
     loss_coeff_heatmap_ce_initial = 0.0
     loss_coeff_heatmap_ce_final = 1.0
     loss_coeff_heatmap_mse_final = 0.0
