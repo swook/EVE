@@ -61,7 +61,7 @@ class CheckpointManager(object):
             for k, v in state_dict.items():
                 if k.startswith(prefix + '.'):
                     sub_state_dict[k] = v
-            torch.save(state_dict, '%s/%s%s' % (ofdir, prefix, self.__suffix))
+            torch.save(sub_state_dict, '%s/%s%s' % (ofdir, prefix, self.__suffix))
 
         # Save each optimizer's state
         for i, optimizer in enumerate(self.__optimizers):
