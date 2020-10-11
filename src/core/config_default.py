@@ -56,6 +56,10 @@ class DefaultConfig(object):
     test_cameras = ['basler', 'webcam_l', 'webcam_c', 'webcam_r']
     test_stimuli = ['image', 'video', 'wikipedia']
 
+    # Inference
+    input_path = ''
+    output_path = ''
+
     # Training
     skip_training = False
     fully_reproducible = False  # enable with possible penalty of performance
@@ -105,6 +109,8 @@ class DefaultConfig(object):
 
     # Conditional refine network configuration
     refine_net_enabled = False
+    refine_net_load_pretrained = False
+
     refine_net_do_offset_augmentation = True
     refine_net_offset_augmentation_sigma = 3.0
 

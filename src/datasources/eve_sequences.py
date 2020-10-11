@@ -112,7 +112,8 @@ class EVESequencesBase(Dataset):
 
             subfolders = sorted([
                 p for p in os.listdir(participant_path)
-                if p.split('/')[-1].startswith('step')
+                if os.path.isdir(os.path.join(participant_path, p))
+                and p.split('/')[-1].startswith('step')
                 and 'eye_tracker_calibration' not in p
             ])
             for subfolder in subfolders:
@@ -357,14 +358,5 @@ class EVESequences_test(EVESequencesBase):
         super(EVESequences_test, self).__init__(
             dataset_path,
             participants_to_use=predefined_splits['test'],
-            **kwargs,
-        )
-
-
-class EVESequences_etc(EVESequencesBase):
-    def __init__(self, dataset_path: str, **kwargs):
-        super(EVESequences_etc, self).__init__(
-            dataset_path,
-            participants_to_use=predefined_splits['etc'],
             **kwargs,
         )

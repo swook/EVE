@@ -63,6 +63,8 @@ class EVE(nn.Module):
         #   a) history of point of gaze (PoG)
         #   b) screen content
         self.refine_net = RefineNet() if config.refine_net_enabled else None
+        if config.refine_net_enabled and config.refine_net_load_pretrained:
+            load_weights_for_instance(self.refine_net)
 
     def forward(self, full_input_dict, create_images=False, current_epoch=None):
         if self.training:  # pick first source
@@ -149,7 +151,7 @@ class EVE(nn.Module):
                 refined_gaze_history_maps = batch_make_gaze_history_maps(
                     full_input_dict['timestamps'], refined_heatmap_history,
                     full_input_dict['PoG_px_tobii_validity'],
-                )
+                ) if 'PoG_px_tobii' in full_input_dict else None
 
                 # Step 3) Yield refined final PoG estimate(s)
                 sub_output_dict['PoG_px_final'] = soft_argmax(sub_output_dict['heatmap_final'])
@@ -187,13 +189,14 @@ class EVE(nn.Module):
 
         if config.load_full_frame_for_visualization:
             # Copy over some values manually
-            output_dict['left_g_gt'] = full_input_dict['left_g_tobii']
+            if 'left_g_tobii' in full_input_dict:
+                output_dict['left_g_gt'] = full_input_dict['left_g_tobii']
+                output_dict['PoG_px_gt'] = full_input_dict['PoG_px_tobii']
+                output_dict['PoG_px_gt_validity'] = full_input_dict['PoG_px_tobii_validity']
             output_dict['left_g_initial'] = full_intermediate_dict['left_g_initial']
             output_dict['left_pupil_size'] = full_intermediate_dict['left_pupil_size']
             output_dict['right_pupil_size'] = full_intermediate_dict['right_pupil_size']
             output_dict['PoG_px_initial'] = full_intermediate_dict['PoG_px_initial']
-            output_dict['PoG_px_gt'] = full_input_dict['PoG_px_tobii']
-            output_dict['PoG_px_gt_validity'] = full_input_dict['PoG_px_tobii_validity']
             if config.refine_net_enabled:
                 output_dict['g_final'] = full_intermediate_dict['g_final']
                 output_dict['PoG_px_final'] = full_intermediate_dict['PoG_px_final']
@@ -201,12 +204,8 @@ class EVE(nn.Module):
         if self.output_predictions:
             output_dict['timestamps'] = full_input_dict['timestamps']
             output_dict['o'] = full_input_dict['o']
-            output_dict['g'] = full_input_dict['g']
             output_dict['left_R'] = full_input_dict['left_R']
             output_dict['head_R'] = full_input_dict['head_R']
-            output_dict['PoG_cm'] = full_input_dict['PoG_cm_tobii']
-            output_dict['PoG_px'] = full_input_dict['PoG_px_tobii']
-            output_dict['validity'] = full_input_dict['PoG_px_tobii_validity']
             output_dict['g_initial'] = full_intermediate_dict['g_initial']
             output_dict['PoG_px_initial'] = full_intermediate_dict['PoG_px_initial']
             output_dict['PoG_cm_initial'] = full_intermediate_dict['PoG_cm_initial']
@@ -214,6 +213,13 @@ class EVE(nn.Module):
             output_dict['pixels_per_millimeter'] = full_input_dict['pixels_per_millimeter']
             output_dict['camera_transformation'] = full_input_dict['camera_transformation']
             output_dict['inv_camera_transformation'] = full_input_dict['inv_camera_transformation']
+
+            # Ground-truth related data
+            if 'g' in full_input_dict:
+                output_dict['g'] = full_input_dict['g']
+                output_dict['validity'] = full_input_dict['PoG_px_tobii_validity']
+                output_dict['PoG_cm'] = full_input_dict['PoG_cm_tobii']
+                output_dict['PoG_px'] = full_input_dict['PoG_px_tobii']
 
             if self.refine_net:
                 output_dict['g_final'] = full_intermediate_dict['g_final']
@@ -586,8 +592,9 @@ class EVE(nn.Module):
                     batch_make_heatmaps(sub_output_dict['PoG_px_' + output_suffix],
                                         history_heatmap_sigma)
                 )
-                gaze_history_maps = batch_make_gaze_history_maps(
-                    full_input_dict['timestamps'], heatmap_history,
-                    full_input_dict['PoG_px_tobii_validity'],
-                )
-                sub_output_dict['history_' + output_suffix] = gaze_history_maps
+                if 'PoG_px_tobii' in full_input_dict:
+                    gaze_history_maps = batch_make_gaze_history_maps(
+                        full_input_dict['timestamps'], heatmap_history,
+                        full_input_dict['PoG_px_tobii_validity'],
+                    )
+                    sub_output_dict['history_' + output_suffix] = gaze_history_maps

@@ -2,6 +2,7 @@
 logs
 outputs*/
 leonhard_outputs/
+*.mp4
 
 # Secrets
 *credentials*
