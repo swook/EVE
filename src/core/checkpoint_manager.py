@@ -95,11 +95,11 @@ class CheckpointManager(object):
         ]
         for checkpoint_path in optimizer_checkpoint_paths:
             optimizer_index = int(os.path.basename(checkpoint_path).split('.')[0].split('_')[-1])
-            assert(optimizer_index < len(self.__optimizers))
-            self.__optimizers[optimizer_index].load_state_dict(
-                torch.load(checkpoint_path)
-            )
-            logger.info('> Loaded optimizer parameters from: %s' % checkpoint_path)
+            if optimizer_index < len(self.__optimizers):
+                self.__optimizers[optimizer_index].load_state_dict(
+                    torch.load(checkpoint_path)
+                )
+                logger.info('> Loaded optimizer parameters from: %s' % checkpoint_path)
 
         step = int(os.path.split(ifdir)[-1][:-3])
         return step

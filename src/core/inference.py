@@ -23,7 +23,7 @@ import os
 
 import torch
 
-from core import DefaultConfig
+from core import DefaultConfig, CheckpointManager
 import core.training as training
 from datasources import EVESequencesBase
 
@@ -86,6 +86,8 @@ def model_setup(model):
         assert os.path.isdir(config.resume_from)
 
         # Load pre-trained model weights
+        model.checkpoint_manager = CheckpointManager(model, [])
+        model.output_dir = config.resume_from
         model.last_step = model.checkpoint_manager.load_last_checkpoint()
         assert model.last_step > 0
 
