@@ -200,7 +200,7 @@ class DefaultConfig(object):
                     setattr(self, key, value)
         self.__class__.__immutable = True
 
-    def __get_config_file_contents():
+    def __get_config_file_contents(self):
         """Retrieve and cache default and user config file contents."""
         out = {}
         for relpath in ['config_default.py']:
@@ -210,7 +210,7 @@ class DefaultConfig(object):
                 out[os.path.basename(path)] = f.read()
         return out
 
-    def __get_python_file_contents():
+    def __get_python_file_contents(self):
         """Retrieve and cache default and user config file contents."""
         out = {}
         base_path = os.path.relpath(os.path.dirname(__file__) + '/../')

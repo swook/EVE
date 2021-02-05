@@ -23,7 +23,7 @@ import torch
 import torch.nn.functional as F
 
 from .base_loss_with_validity import BaseLossWithValidity
-from models.common import pitchyaw_to_vector
+from ..models.common import pitchyaw_to_vector
 
 
 class AngularLoss(BaseLossWithValidity):
