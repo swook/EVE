@@ -187,6 +187,9 @@ class EVE(nn.Module):
             if k.startswith('output_'):
                 output_dict[k] = full_intermediate_dict[k]
 
+        output_dict['left_pupil_size'] = full_intermediate_dict['left_pupil_size']
+        output_dict['right_pupil_size'] = full_intermediate_dict['right_pupil_size']
+
         if config.load_full_frame_for_visualization:
             # Copy over some values manually
             if 'left_g_tobii' in full_input_dict:
@@ -194,8 +197,6 @@ class EVE(nn.Module):
                 output_dict['PoG_px_gt'] = full_input_dict['PoG_px_tobii']
                 output_dict['PoG_px_gt_validity'] = full_input_dict['PoG_px_tobii_validity']
             output_dict['left_g_initial'] = full_intermediate_dict['left_g_initial']
-            output_dict['left_pupil_size'] = full_intermediate_dict['left_pupil_size']
-            output_dict['right_pupil_size'] = full_intermediate_dict['right_pupil_size']
             output_dict['PoG_px_initial'] = full_intermediate_dict['PoG_px_initial']
             if config.refine_net_enabled:
                 output_dict['g_final'] = full_intermediate_dict['g_final']

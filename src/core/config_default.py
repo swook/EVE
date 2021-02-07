@@ -133,13 +133,15 @@ class DefaultConfig(object):
     gaze_history_map_decay_per_ms = 0.999
 
     # Evaluation
-    test_sequence_len = 25  # In frames assuming 10Hz
     test_num_samples = 128
     test_batch_size = 128
     test_data_workers = 0
     test_every_n_steps = 500
     full_test_batch_size = 128
     full_test_data_workers = 4
+
+    codalab_eval_batch_size = 128
+    codalab_eval_data_workers = 1
 
     # Checkpoints management
     checkpoints_save_every_n_steps = 100

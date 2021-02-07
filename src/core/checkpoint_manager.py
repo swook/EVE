@@ -30,6 +30,9 @@ from core import DefaultConfig
 config = DefaultConfig()
 logger = logging.getLogger(__name__)
 
+# Set device
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+
 
 class CheckpointManager(object):
 
@@ -80,7 +83,7 @@ class CheckpointManager(object):
             if os.path.isfile(p) and not os.path.basename(p).startswith('optimizer_')
         ]
         for ifpath in ifpaths:
-            sub_state_dict = torch.load(ifpath)
+            sub_state_dict = torch.load(ifpath, map_location=device)
             for k, v in sub_state_dict.items():
                 full_state_dict[k] = v
             logger.info('> Loaded model parameters from: %s' % ifpath)
@@ -97,7 +100,7 @@ class CheckpointManager(object):
             optimizer_index = int(os.path.basename(checkpoint_path).split('.')[0].split('_')[-1])
             if optimizer_index < len(self.__optimizers):
                 self.__optimizers[optimizer_index].load_state_dict(
-                    torch.load(checkpoint_path)
+                    torch.load(checkpoint_path, map_location=device)
                 )
                 logger.info('> Loaded optimizer parameters from: %s' % checkpoint_path)
 
