@@ -23,6 +23,7 @@ import logging
 import os
 import pickle
 import time
+import zipfile
 
 import numpy as np
 import torch
@@ -96,3 +97,8 @@ output_fname = 'for_codalab_%s.pkl.gz' % time.strftime('%y%m%d_%H%M%S')
 final_output_path = os.path.join(model.output_dir, output_fname)
 with gzip.open(final_output_path, 'wb') as f:
     pickle.dump(outputs_to_write, f, protocol=3)
+
+# Write output zip
+zip_output_path = final_output_path.replace('.pkl.gz', '.zip')
+with zipfile.ZipFile(zip_output_path, 'w') as zf:
+    zf.write(final_output_path, arcname=output_fname)
