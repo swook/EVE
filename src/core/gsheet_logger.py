@@ -30,7 +30,7 @@ import gspread
 import numpy as np
 from oauth2client.service_account import ServiceAccountCredentials
 
-from core import DefaultConfig
+from ..core import DefaultConfig
 
 config = DefaultConfig()
 logger = logging.getLogger(__name__)

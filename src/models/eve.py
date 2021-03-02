@@ -22,13 +22,9 @@ import numpy as np
 import torch
 import torch.nn as nn
 
-from core import DefaultConfig
-from losses.cross_entropy import CrossEntropyLoss
-from losses.euclidean import EuclideanLoss
-from losses.angular import AngularLoss
-from losses.mse import MSELoss
-from losses.l1 import L1Loss
-from utils.load_model import load_weights_for_instance
+from ..core import DefaultConfig
+from ..losses import *
+from ..utils.load_model import load_weights_for_instance
 
 from .common import (batch_make_heatmaps, batch_make_gaze_history_maps, soft_argmax,
                      to_screen_coordinates, apply_offset_augmentation,

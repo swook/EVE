@@ -25,7 +25,7 @@ import shutil
 
 import torch
 
-from core import DefaultConfig
+from ..core import DefaultConfig
 
 config = DefaultConfig()
 logger = logging.getLogger(__name__)

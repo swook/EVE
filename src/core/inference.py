@@ -23,9 +23,9 @@ import os
 
 import torch
 
-from core import DefaultConfig, CheckpointManager
-import core.training as training
-from datasources import EVESequencesBase
+from ..core import DefaultConfig, CheckpointManager
+import training as training
+from ..datasources import EVESequencesBase
 
 # Default singleton config object
 config = DefaultConfig()
@@ -92,7 +92,7 @@ def model_setup(model):
         assert model.last_step > 0
 
     else:
-        from utils.load_model import load_weights_for_instance
+        from ..utils.load_model import load_weights_for_instance
         logger.info('Loading default weights if possible as no --resume-from specified.')
         load_weights_for_instance(model.eye_net)
         load_weights_for_instance(model.refine_net)

@@ -29,7 +29,7 @@ import numpy as np
 import torch
 from torch.utils.data import Dataset
 
-from core import DefaultConfig
+from ..core import DefaultConfig
 from .common import predefined_splits, stimulus_type_from_folder_name, VideoReader
 
 config = DefaultConfig()

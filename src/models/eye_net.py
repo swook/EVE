@@ -25,7 +25,7 @@ import torch
 from torch import nn
 from torchvision.models.resnet import BasicBlock, ResNet
 
-from core import DefaultConfig
+from ..core import DefaultConfig
 
 config = DefaultConfig()
 logger = logging.getLogger(__name__)

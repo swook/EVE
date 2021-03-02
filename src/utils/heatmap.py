@@ -22,7 +22,7 @@ import logging
 
 import numpy as np
 
-from core import DefaultConfig
+from ..core import DefaultConfig
 
 config = DefaultConfig()
 logger = logging.getLogger(__name__)
