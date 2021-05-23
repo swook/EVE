@@ -4,6 +4,7 @@ The code accompanying our ECCV 2020 publication and dataset, EVE.
 
 * Authors: [Seonwook Park](https://ait.ethz.ch/people/spark/), [Emre Aksan](https://ait.ethz.ch/people/eaksan/), [Xucong Zhang](https://ait.ethz.ch/people/zhang/), and [Otmar Hilliges](https://ait.ethz.ch/people/hilliges/)
 * Project page: https://ait.ethz.ch/projects/2020/EVE/
+* Codalab (test set evaluation and public leaderboard): https://competitions.codalab.org/competitions/28954
 
 
 ## Setup
@@ -89,4 +90,4 @@ A: This code does not offer actual eye tracking. Rather, it concerns the benchma
 
 **Q: Where are the test set labels?**
 
-A: We plan to make evaluations on the test set possible as soon as possible via a web service with a public leaderboard. In this way, we strive to make evaluations on our test set consistent and reliable, and encourage competition in the field of video-based gaze estimation.
+A: Our public evaluation server and leaderboard are hosted by Codalab at https://competitions.codalab.org/competitions/28954. This allows for evaluations on our test set to be consistent and reliable, and encourage competition in the field of video-based gaze estimation. Please note that the performance reported by Codalab is not strictly speaking comparable to the original paper's results, as we only perform evaluation on a large subset of the full test set. We recommend acquiring the updated performance figures from the [leaderboard](https://competitions.codalab.org/competitions/28954#results).
