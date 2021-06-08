@@ -22,7 +22,7 @@ import logging
 
 import torch.utils.model_zoo
 
-from core import DefaultConfig
+from ..core import DefaultConfig
 
 config = DefaultConfig()
 logger = logging.getLogger(__name__)
@@ -33,8 +33,8 @@ model_url_pre = 'https://github.com/swook/EVE/releases/download/v0.0/'
 
 
 def load_weights_for_instance(model_instance):
-    from models.eye_net import EyeNet
-    from models.refine_net import RefineNet
+    from ..models.eye_net import EyeNet
+    from ..models.refine_net import RefineNet
     if isinstance(model_instance, EyeNet):
         model_fname = 'eve_eyenet_'
         model_fname += config.eye_net_rnn_type if config.eye_net_use_rnn else 'static'

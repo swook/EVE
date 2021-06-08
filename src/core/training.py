@@ -34,7 +34,7 @@ import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader, Subset
 
-from core import DefaultConfig, CheckpointManager, GoogleSheetLogger, Tensorboard
+from ..core import *
 
 config = DefaultConfig()
 
