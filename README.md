@@ -3,7 +3,7 @@
 The code accompanying our ECCV 2020 publication and dataset, EVE.
 
 * Authors: [Seonwook Park](https://ait.ethz.ch/people/spark/), [Emre Aksan](https://ait.ethz.ch/people/eaksan/), [Xucong Zhang](https://ait.ethz.ch/people/zhang/), and [Otmar Hilliges](https://ait.ethz.ch/people/hilliges/)
-* Project page: https://ait.ethz.ch/projects/2020/EVE/
+* Project page: https://ait.ethz.ch/eve
 * Codalab (test set evaluation and public leaderboard): https://competitions.codalab.org/competitions/28954
 
 
